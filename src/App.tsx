@@ -1,11 +1,12 @@
 import React from 'react';
 import logo from './logo.svg';
 import './App.css';
+import NavB from './components/NavB';
 
 function App() {
   return (
     <>
-      <p>Hello LIbMGMT - 108</p>
+      <NavB/>
     </>
   );
 }
