@@ -57,7 +57,6 @@ export function BookConsole(){
 
    const handleClose = () =>  SetShowEditBookForm(false);
    const handleUpdate = (updatedBook : Book) => {
-      alert("Updated book")
       console.log("Updated book",updatedBook)
    }
 

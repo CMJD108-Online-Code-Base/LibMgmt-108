@@ -1,5 +1,6 @@
 import {Modal,Button,Form,FloatingLabel} from "react-bootstrap";
 import { useState, useEffect } from "react";
+import { UpdateBook } from "../service/Books/UpdateBook"
 
 interface Book {
   bookId: string;
@@ -54,11 +55,16 @@ function EditBook({
    const handleOnChange = (e :React.ChangeEvent<HTMLInputElement>)=>{
         setBook({ ... book,[e.target.name]: e.target.value})
    }
-   //handle the save / update
-   const handleSave = () =>{
-        alert("Updated")
+   //handle the update process
+   const handleSave = async () =>{
+       try{
+        const updatedBook = await UpdateBook(book);
+        handleUpdate(updatedBook)
+        handleClose()
+       }catch(err){
+           console.error("Failed to update the book",err)
+       }        
    }
-
 
   return (
     <Modal show={show} onHide={handleClose}>
@@ -177,7 +183,7 @@ function EditBook({
           Close
         </Button>
         <Button variant="primary" onClick={handleSave}>
-          Save Changes
+          Update
         </Button>
       </Modal.Footer>
     </Modal>
