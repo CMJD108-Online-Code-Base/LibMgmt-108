@@ -8,14 +8,14 @@ export function BookConsole(){
 
   interface Book {
     bookId:string;
-    booName:string;
+    bookName:string;
     author:string;
     edition:string;
     publisher:string;
     isbn:string;
     price:number
     totalQty:number;
-    avilableQty:string;
+    avilableQty:number;
     lastUpdateDate:string;
     lastUpdateTime:string;
   }
