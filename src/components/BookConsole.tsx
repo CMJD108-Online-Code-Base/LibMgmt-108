@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import { Button } from 'react-bootstrap';
 import Table from 'react-bootstrap/Table';
 import { GetBooks } from '../service/Books/GetBooks';
+import EditBook from './EditBook';
 
 export function BookConsole(){
 
@@ -21,6 +22,7 @@ export function BookConsole(){
 
   const [bookData,setBookData] = useState<Book[]>([])
   const [selectedRow,SetSelectedRow] = useState<Book |null>(null)
+  const [showEditBookForm,SetShowEditBookForm] = useState(false) // handle shwo the edit book form
 
    //add useEffect to load table data
    useEffect(()=>{
@@ -50,8 +52,14 @@ export function BookConsole(){
    const handleEdit = (row : Book) =>{
      console.log("handle Edit",row)
      SetSelectedRow(row)
+     SetShowEditBookForm(true)
    }
 
+   const handleClose = () =>  SetShowEditBookForm(false);
+   const handleUpdate = (updatedBook : Book) => {
+      alert("Updated book")
+      console.log("Updated book",updatedBook)
+   }
 
     return (
 <>
@@ -80,6 +88,12 @@ export function BookConsole(){
               ))}
       </tbody>
     </Table>
+    <EditBook
+    show = {showEditBookForm}
+    selectedRow = {selectedRow}
+    handleClose = {handleClose}
+    handleUpdate = {handleUpdate}
+    />
 </>
     )
 }
