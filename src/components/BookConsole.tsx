@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import { Button } from 'react-bootstrap';
 import Table from 'react-bootstrap/Table';
 import { GetBooks } from '../service/Books/GetBooks';
 
@@ -41,7 +42,8 @@ export function BookConsole(){
       "Total Qty",
       "Avilable Qty",
       "Last Update Date",
-      "Last Update Time"
+      "Last Update Time",
+      "Action"
    ];
 
     return (
@@ -59,10 +61,16 @@ export function BookConsole(){
                    <tr key={row.bookId}>
                    {Object.values(row).map((cell,index) =>(
                      <td key={index}>{cell}</td>
-                   ))}  
+                   ))}
+                   <td>
+                     <div className="d-flex gap-2">
+                          <Button variant="outline-success">Edit</Button>  
+                          <Button variant="outline-danger">Delete</Button>  
+                    </div>
+                   </td>
+                    
                   </tr>  
               ))}
-             
       </tbody>
     </Table>
 </>
