@@ -4,6 +4,7 @@ import Table from 'react-bootstrap/Table';
 import { GetBooks } from '../service/Books/GetBooks';
 import { DeleteBook } from '../service/Books/DeleteBook';
 import EditBook from './EditBook';
+import AddBook from './AddBook';
 
 export function BookConsole(){
 
@@ -23,7 +24,8 @@ export function BookConsole(){
 
   const [bookData,setBookData] = useState<Book[]>([])
   const [selectedRow,SetSelectedRow] = useState<Book |null>(null)
-  const [showEditBookForm,SetShowEditBookForm] = useState(false) // handle shwo the edit book form
+  const [showEditBookForm,setShowEditBookForm] = useState(false) // handle show the edit book form
+  const [showAddBookForm,setShowAddBookForm] = useState(false) // handle show the add book form
 
    //add useEffect to load table data
    useEffect(()=>{
@@ -53,10 +55,10 @@ export function BookConsole(){
    const handleEdit = (row : Book) =>{
      console.log("handle Edit",row)
      SetSelectedRow(row)
-     SetShowEditBookForm(true)
+     setShowEditBookForm(true)
    }
 
-   const handleClose = () =>  SetShowEditBookForm(false);
+   const handleClose = () =>  setShowEditBookForm(false);
    const handleUpdate = (updatedBook : Book) => {
      const updatedBooks = bookData.map((book) =>
         book.bookId === updatedBook.bookId ? updatedBook : book
@@ -73,9 +75,15 @@ export function BookConsole(){
     } 
   
    }
+   const handleAdd = (newBook :Book) =>{
+    setBookData((prevData) => [...prevData,newBook])
+   }
 
     return (
 <>
+<div className="d-flex justify-content-end p-3">
+  <Button variant="outline-primary" onClick={() => setShowAddBookForm(true)}>Add</Button>  
+</div>
     <Table striped bordered hover>
       <thead>
         <tr>
@@ -106,6 +114,11 @@ export function BookConsole(){
     selectedRow = {selectedRow}
     handleClose = {handleClose}
     handleUpdate = {handleUpdate}
+    />
+    <AddBook
+      show={showAddBookForm}
+      handleOnClose={() => setShowAddBookForm(false)}
+      handleAdd = {handleAdd}
     />
 </>
     )
