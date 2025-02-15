@@ -20,6 +20,7 @@ export function BookConsole(){
   }
 
   const [bookData,setBookData] = useState<Book[]>([])
+  const [selectedRow,SetSelectedRow] = useState<Book |null>(null)
 
    //add useEffect to load table data
    useEffect(()=>{
@@ -45,6 +46,12 @@ export function BookConsole(){
       "Last Update Time",
       "Action"
    ];
+   //handle edit function
+   const handleEdit = (row : Book) =>{
+     console.log("handle Edit",row)
+     SetSelectedRow(row)
+   }
+
 
     return (
 <>
@@ -64,7 +71,7 @@ export function BookConsole(){
                    ))}
                    <td>
                      <div className="d-flex gap-2">
-                          <Button variant="outline-success">Edit</Button>  
+                          <Button variant="outline-success" onClick={() =>  handleEdit(row)}>Edit</Button>  
                           <Button variant="outline-danger">Delete</Button>  
                     </div>
                    </td>
