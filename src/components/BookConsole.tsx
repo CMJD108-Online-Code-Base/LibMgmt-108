@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import { Button } from 'react-bootstrap';
 import Table from 'react-bootstrap/Table';
 import { GetBooks } from '../service/Books/GetBooks';
+import { DeleteBook } from '../service/Books/DeleteBook';
 import EditBook from './EditBook';
 
 export function BookConsole(){
@@ -57,7 +58,20 @@ export function BookConsole(){
 
    const handleClose = () =>  SetShowEditBookForm(false);
    const handleUpdate = (updatedBook : Book) => {
-      console.log("Updated book",updatedBook)
+     const updatedBooks = bookData.map((book) =>
+        book.bookId === updatedBook.bookId ? updatedBook : book
+     );
+     setBookData(updatedBooks)
+   }
+   //handle delete
+   const handleDelete = async (bookId:string) =>{
+    try{
+      await DeleteBook(bookId)
+      setBookData(bookData.filter((book)=> book.bookId !== bookId)) 
+    }catch(err){
+      console.error("Delete book failed with ",err)
+    } 
+  
    }
 
     return (
@@ -79,7 +93,7 @@ export function BookConsole(){
                    <td>
                      <div className="d-flex gap-2">
                           <Button variant="outline-success" onClick={() =>  handleEdit(row)}>Edit</Button>  
-                          <Button variant="outline-danger">Delete</Button>  
+                          <Button variant="outline-danger" onClick={() => handleDelete(row.bookId)}>Delete</Button>  
                     </div>
                    </td>
                     
