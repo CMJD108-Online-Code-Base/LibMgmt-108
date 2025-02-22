@@ -12,8 +12,6 @@ interface Book {
   price: number;
   totalQty: number;
   avilableQty: number;
-  lastUpdateDate: string;
-  lastUpdateTime: string;
 }
 
 interface BookEditProps {
@@ -41,9 +39,8 @@ function EditBook({
     isbn: "",
     price: 0,
     totalQty: 0,
-    avilableQty: 0,
-    lastUpdateDate: "",
-    lastUpdateTime: ""
+    avilableQty: 0
+
   });  
 
   //need load the data when component mounted
@@ -67,7 +64,20 @@ function EditBook({
            console.error("Failed to update the book",err)
        }        
    }
-
+  // handle the repeat of FloatingLabel
+  const renderFloatingTable = (label:string, name:keyof Book, type="text",readOnly = false) =>
+    (
+    <FloatingLabel controlId="floatingInput" label={label}className="mb-3">
+      <Form.Control 
+      type={type}
+      name={name}
+      value={book[name]}
+      onChange={handleOnChange}
+      readOnly={readOnly}
+      />
+    </FloatingLabel>
+    );
+  
   return (
     <Modal show={show} onHide={handleClose}>
       <Modal.Header closeButton>
@@ -76,108 +86,15 @@ function EditBook({
       <Modal.Body>
         {/* Form */}
         <Form>
-
-          <FloatingLabel controlId="floatingInput" label="Book Id"className="mb-3">
-            <Form.Control 
-            readOnly
-            type="text" 
-            name="bookId"
-            value={book.bookId}
-            onChange={handleOnChange}
-            />
-          </FloatingLabel>
-
-          <FloatingLabel controlId="floatingInput" label="Title"className="mb-3">
-            <Form.Control 
-            type="text" 
-            name="bookName"
-            value={book.bookName}
-            onChange={handleOnChange}
-            />
-          </FloatingLabel>
-
-          <FloatingLabel controlId="floatingInput" label="Author"className="mb-3">
-            <Form.Control 
-            type="text" 
-            name="author"
-            value={book.author}
-            onChange={handleOnChange}
-            />
-          </FloatingLabel>
-
-          <FloatingLabel controlId="floatingInput" label="Edition"className="mb-3">
-            <Form.Control 
-            type="text" 
-            name="edition"
-            value={book.edition}
-            onChange={handleOnChange}
-            />
-          </FloatingLabel>
-
-          <FloatingLabel controlId="floatingInput" label="Publisher"className="mb-3">
-            <Form.Control 
-            type="text" 
-            name="publisher"
-            value={book.publisher}
-            onChange={handleOnChange}
-            />
-          </FloatingLabel>
-
-          <FloatingLabel controlId="floatingInput" label="ISBN"className="mb-3">
-            <Form.Control 
-            type="text" 
-            name="isbn"
-            value={book.isbn}
-            onChange={handleOnChange}
-            />
-          </FloatingLabel>
-
-          <FloatingLabel controlId="floatingInput" label="Price"className="mb-3">
-            <Form.Control 
-            type="number" 
-            name="price"
-            value={book.price}
-            onChange={handleOnChange}
-            />
-          </FloatingLabel>
-
-          <FloatingLabel controlId="floatingInput" label="Total Qty"className="mb-3">
-            <Form.Control 
-            type="number" 
-            name="totalQty"
-            value={book.totalQty}
-            onChange={handleOnChange}
-            />
-          </FloatingLabel>
-
-          <FloatingLabel controlId="floatingInput" label="Avl Qty"className="mb-3">
-            <Form.Control 
-            type="number" 
-            name="avilableQty"
-            value={book.avilableQty}
-            onChange={handleOnChange}
-            />
-          </FloatingLabel>
-
-          <FloatingLabel controlId="floatingInput" label="Last Updated Date"className="mb-3">
-            <Form.Control 
-            type="text" 
-            name="lastUpdateDate"
-            value={book.lastUpdateDate}
-            onChange={handleOnChange}
-            />
-          </FloatingLabel>
-
-          <FloatingLabel controlId="floatingInput" label="Last Updated time"className="mb-3">
-            <Form.Control 
-            type="text" 
-            name="lastUpdateTime"
-            value={book.lastUpdateTime}
-            onChange={handleOnChange}
-            />
-          </FloatingLabel>
-
-   
+          {renderFloatingTable("Book Id","bookId","text",true)}
+          {renderFloatingTable("Book Name","bookName")}
+          {renderFloatingTable("Author","author")}
+          {renderFloatingTable("Edition","edition")}
+          {renderFloatingTable("Publisher","publisher")}
+          {renderFloatingTable("ISBN","isbn")}
+          {renderFloatingTable("Price","price")}
+          {renderFloatingTable("Total Qty","totalQty","number")}
+          {renderFloatingTable("Available Qty","avilableQty","number")}
         </Form>
       </Modal.Body>
       <Modal.Footer>
