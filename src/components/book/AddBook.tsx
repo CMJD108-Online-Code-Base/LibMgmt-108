@@ -1,6 +1,5 @@
 import {Modal,Button,Form,FloatingLabel} from "react-bootstrap";
-import { useState, useEffect } from "react";
-
+import { useState } from "react";
 interface Book {
   bookId: string;
   bookName: string;
@@ -11,16 +10,8 @@ interface Book {
   price: number;
   totalQty: number;
   avilableQty: number;
-  // lastUpdateDate: string;
-  // lastUpdateTime: string;
-}
 
-// interface BookEditProps {
-//   show: boolean;
-//   selectedRow: Book | null;
-//   handleClose: () => void;
-//   handleUpdate: (updatedBook: Book) => void;
-// }
+}
 
 function AddBook({
   show,
@@ -38,9 +29,7 @@ function AddBook({
     isbn: "",
     price: 0,
     totalQty: 0,
-    avilableQty : 0,
-    // lastUpdateDate: "",
-    // lastUpdateTime: ""
+    avilableQty : 0
   });  
 
    // add book data from the form

@@ -1,7 +1,5 @@
 import {Modal,Button,Form,FloatingLabel} from "react-bootstrap";
 import { useState, useEffect } from "react";
-// import { UpdateBook } from "../service/Books/UpdateBook"
-
 interface Book {
   bookId: string;
   bookName: string;
@@ -13,7 +11,6 @@ interface Book {
   totalQty: number;
   avilableQty: number;
 }
-
 interface BookEditProps {
   show: boolean;
   selectedRow: Book | null;
