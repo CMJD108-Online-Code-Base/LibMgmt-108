@@ -117,7 +117,7 @@ export function BookConsole(){
     />
     <AddBook
       show={showAddBookForm}
-      handleOnClose={() => setShowAddBookForm(false)}
+      handleOnClose={() => setShowAddBookForm(false)} //pass the function as prop
       handleAdd = {handleAdd}
     />
 </>

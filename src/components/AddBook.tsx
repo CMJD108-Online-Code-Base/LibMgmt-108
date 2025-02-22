@@ -12,8 +12,8 @@ interface Book {
   price: number;
   totalQty: number;
   avilableQty: number;
-  lastUpdateDate: string;
-  lastUpdateTime: string;
+  // lastUpdateDate: string;
+  // lastUpdateTime: string;
 }
 
 // interface BookEditProps {
@@ -25,7 +25,7 @@ interface Book {
 
 function AddBook({
   show,
-  handleClose,
+  handleOnClose,
   handleAdd,
 }: any) {
   //state management
@@ -39,8 +39,8 @@ function AddBook({
     price: 0,
     totalQty: 0,
     avilableQty : 0,
-    lastUpdateDate: "",
-    lastUpdateTime: ""
+    // lastUpdateDate: "",
+    // lastUpdateTime: ""
   });  
 
    // add book data from the form
@@ -54,14 +54,14 @@ function AddBook({
        try{
         const newBookDetails = await AddBookData(newBook);
         handleAdd(newBookDetails)
-        handleClose()
+        handleOnClose()
        }catch(err){
            console.error("Failed to update the book",err)
        }        
    }
 
   return (
-    <Modal show={show} onHide={handleClose}>
+    <Modal show={show} onHide={handleOnClose}>
       <Modal.Header closeButton>
         <Modal.Title>Add Book</Modal.Title>
       </Modal.Header>
@@ -161,7 +161,7 @@ function AddBook({
         </Form>
       </Modal.Body>
       <Modal.Footer>
-        <Button variant="secondary" onClick={handleClose}>
+        <Button variant="secondary" onClick={handleOnClose}>
           Close
         </Button>
         <Button variant="primary" onClick={handleOnSubmit}>
