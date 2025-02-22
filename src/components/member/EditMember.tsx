@@ -1,22 +1,17 @@
 import {Modal,Button,Form,FloatingLabel} from "react-bootstrap";
 import { useState, useEffect } from "react";
-interface Book {
-  bookId: string;
-  bookName: string;
-  author: string;
-  edition: string;
-  publisher: string;
-  isbn: string;
-  price: number;
-  totalQty: number;
-  avilableQty: number;
+interface Member {
+  memberId:string;
+  name:string;
+  email:string;
+  membershipDate:string;
 }
-interface BookEditProps {
+interface MemberEditProps {
   show: boolean;
-  selectedRow: Book | null;
+  selectedRow: Member | null;
   handleClose: () => void;
-  handleUpdate: (updatedBook: Book) => void;
-  updateBooks : (book : Book) => Promise<void>
+  handleUpdate: (updateMembers: Member) => void;
+  updateMembers : (member : Member) => Promise<void>
 }
 
 function EditMember({
@@ -24,51 +19,46 @@ function EditMember({
   selectedRow,
   handleClose,
   handleUpdate,
-  updateBooks
-}: BookEditProps) {
+  updateMembers
+}: MemberEditProps) {
   //state management
-  const [book,setBook] = useState<Book>({
-    bookId: "",
-    bookName: "",
-    author: "",
-    edition: "",
-    publisher: "",
-    isbn: "",
-    price: 0,
-    totalQty: 0,
-    avilableQty: 0
+  const [member,setMember] = useState<Member>({
+    memberId: "",
+    name: "",
+    email: "",
+    membershipDate: ""
 
   });  
 
   //need load the data when component mounted
    useEffect(()=>{
        if(selectedRow){
-           setBook({...selectedRow})
+        setMember({...selectedRow})
        }
    },[selectedRow]);
 
    // add book data from the form
    const handleOnChange = (e :React.ChangeEvent<HTMLInputElement>)=>{
-        setBook({ ... book,[e.target.name]: e.target.value})
+    setMember({ ... member,[e.target.name]: e.target.value})
    }
    //handle the update process
    const handleSave = async () =>{
        try{
-        await updateBooks(book);
-        handleUpdate(book)
+        await updateMembers(member);
+        handleUpdate(member)
         handleClose()
        }catch(err){
            console.error("Failed to update the book",err)
        }        
    }
   // handle the repeat of FloatingLabel
-  const renderFloatingTable = (label:string, name:keyof Book, type="text",readOnly = false) =>
+  const renderFloatingTable = (label:string, name:keyof Member, type="text",readOnly = false) =>
     (
     <FloatingLabel controlId="floatingInput" label={label}className="mb-3">
       <Form.Control 
       type={type}
       name={name}
-      value={book[name]}
+      value={member[name]}
       onChange={handleOnChange}
       readOnly={readOnly}
       />
@@ -83,15 +73,10 @@ function EditMember({
       <Modal.Body>
         {/* Form */}
         <Form>
-          {renderFloatingTable("Book Id","bookId","text",true)}
-          {renderFloatingTable("Book Name","bookName")}
-          {renderFloatingTable("Author","author")}
-          {renderFloatingTable("Edition","edition")}
-          {renderFloatingTable("Publisher","publisher")}
-          {renderFloatingTable("ISBN","isbn")}
-          {renderFloatingTable("Price","price")}
-          {renderFloatingTable("Total Qty","totalQty","number")}
-          {renderFloatingTable("Available Qty","avilableQty","number")}
+          {renderFloatingTable("Member Id","memberId","text",true)}
+          {renderFloatingTable("Name","name")}
+          {renderFloatingTable("Email","email")}
+          {renderFloatingTable("Membership Date","membershipDate")}
         </Form>
       </Modal.Body>
       <Modal.Footer>
@@ -106,4 +91,4 @@ function EditMember({
   );
 }
 
-export default EditBook;
+export default EditMember;
