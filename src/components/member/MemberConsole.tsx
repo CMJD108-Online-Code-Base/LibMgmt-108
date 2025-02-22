@@ -4,6 +4,7 @@ import Table from 'react-bootstrap/Table';
 import EditMember from './EditMember';
 import Addmember from './AddMember';
 import { AddMemberData, DeleteMember, GetMembers, UpdateMember } from '../../service/MemberData';
+import { useLocation } from 'react-router';
 
 export function MemberConsole(){
 
@@ -63,12 +64,16 @@ export function MemberConsole(){
    const handleAdd = (newMember :Member) =>{
     setMemberData((prevData) => [...prevData,newMember])
    }
+   const location = useLocation();
+   const routeName = location.pathname.split("/").filter(Boolean).pop() || "Home";
+   const formattedTitle = routeName.charAt(0).toUpperCase() + routeName.slice(1, -1) + " Console";
 
     return (
 <>
 <div className="d-flex justify-content-end p-3">
   <Button variant="outline-primary" onClick={() => setShowAddMemberForm(true)}>Add</Button>  
 </div>
+      <h1>{formattedTitle}</h1>
     <Table striped bordered hover>
       <thead>
         <tr>

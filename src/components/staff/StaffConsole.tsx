@@ -4,6 +4,7 @@ import Table from 'react-bootstrap/Table';
 import EditStaff from './EditStaff';
 import AddStaff from './AddStaff';
 import { AddStaffData, DeleteStaff, GetStaff, UpdateStaff } from '../../service/StaffData';
+import { useLocation } from 'react-router';
 
 export function StaffConsole(){
 
@@ -73,11 +74,18 @@ export function StaffConsole(){
     setStaffData((prevData) => [...prevData,newStaff])
    }
 
-    return (
+   //get location of current route
+   const location = useLocation();
+   const routeName = location.pathname.split("/").filter(Boolean).pop() || "Home";
+   const formattedTitle = routeName.charAt(0).toUpperCase() + routeName.slice(1, -1) + " Console";
+
+
+return (
 <>
 <div className="d-flex justify-content-end p-3">
   <Button variant="outline-primary" onClick={() => setShowAddStaffForm(true)}>Add</Button>  
 </div>
+      <h1>{formattedTitle}</h1>
     <Table striped bordered hover>
       <thead>
         <tr>

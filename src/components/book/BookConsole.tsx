@@ -4,6 +4,7 @@ import Table from 'react-bootstrap/Table';
 import EditBook from './EditBook';
 import AddBook from './AddBook';
 import { AddBookData, UpdateBook, GetBooks, DeleteBook } from '../../service/BookData'
+import { useLocation } from 'react-router';
 
 export function BookConsole(){
 
@@ -76,11 +77,16 @@ export function BookConsole(){
     setBookData((prevData) => [...prevData,newBook])
    }
 
+   const location = useLocation();
+   const routeName = location.pathname.split("/").filter(Boolean).pop() || "Home";
+   const formattedTitle = routeName.charAt(0).toUpperCase() + routeName.slice(1, -1) + " Console";
+   
     return (
 <>
 <div className="d-flex justify-content-end p-3">
   <Button variant="outline-primary" onClick={() => setShowAddBookForm(true)}>Add</Button>  
 </div>
+      <h1>{formattedTitle}</h1>
     <Table striped bordered hover>
       <thead>
         <tr>
