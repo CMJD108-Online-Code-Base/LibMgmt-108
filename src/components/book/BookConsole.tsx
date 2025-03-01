@@ -5,6 +5,7 @@ import EditBook from './EditBook';
 import AddBook from './AddBook';
 import { AddBookData, UpdateBook, GetBooks, DeleteBook } from '../../service/BookData'
 import { useLocation } from 'react-router';
+import styles from "./bookstyle.module.css"
 
 export function BookConsole(){
 
@@ -77,25 +78,25 @@ export function BookConsole(){
     setBookData((prevData) => [...prevData,newBook])
    }
 
-   const location = useLocation();
-   const routeName = location.pathname.split("/").filter(Boolean).pop() || "Home";
-   const formattedTitle = routeName.charAt(0).toUpperCase() + routeName.slice(1, -1) + " Console";
+  //  const location = useLocation();
+  //  const routeName = location.pathname.split("/").filter(Boolean).pop() || "Home";
+  //  const formattedTitle = routeName.charAt(0).toUpperCase() + routeName.slice(1, -1) + " Console";
    
     return (
 <>
 <div className="d-flex justify-content-end p-3">
   <Button variant="outline-primary" onClick={() => setShowAddBookForm(true)}>Add</Button>  
 </div>
-      <h1>{formattedTitle}</h1>
-    <Table striped bordered hover>
-      <thead>
+      <p className={styles.bookTitle}>Book Console</p>
+    <Table striped borderless hover>
+      <thead className='text-center'>
         <tr>
             {tHeads.map((headings) =>(
                 <th>{headings}</th>
             ))}
         </tr>
       </thead>
-      <tbody>
+      <tbody className='text-center'>
               {bookData.map((row)=> (
                    <tr key={row.bookId}>
                    {Object.values(row).map((cell,index) =>(

@@ -75,9 +75,9 @@ export function StaffConsole(){
    }
 
    //get location of current route
-   const location = useLocation();
-   const routeName = location.pathname.split("/").filter(Boolean).pop() || "Home";
-   const formattedTitle = routeName.charAt(0).toUpperCase() + routeName.slice(1, -1) + " Console";
+  //  const location = useLocation();
+  //  const routeName = location.pathname.split("/").filter(Boolean).pop() || "Home";
+  //  const formattedTitle = routeName.charAt(0).toUpperCase() + routeName.slice(1, -1) + " Console";
 
 
 return (
@@ -85,7 +85,7 @@ return (
 <div className="d-flex justify-content-end p-3">
   <Button variant="outline-primary" onClick={() => setShowAddStaffForm(true)}>Add</Button>  
 </div>
-      <h1>{formattedTitle}</h1>
+      <h1>Staff Console</h1>
     <Table striped bordered hover>
       <thead>
         <tr>
