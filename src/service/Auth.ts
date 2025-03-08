@@ -9,6 +9,20 @@ const SignUpTask = async(signUp :any) =>{
             `${baseAuthUrl}/signup`,    
              signUp
         );
+        return signUpResponse.data.token
+    }catch(err){
+        console.error(err)
+        throw err
+    }
+   
+}
+const SignInTask = async(signUp :any) =>{
+    console.log(signUp)
+    try{
+        const signUpResponse = await axios.post(
+            `${baseAuthUrl}/signup`,    
+             signUp
+        );
         console.log(signUpResponse.data.token)
         return signUpResponse.data.token
     }catch(err){
@@ -16,6 +30,6 @@ const SignUpTask = async(signUp :any) =>{
         throw err
     }
    
-   
-
 }
+
+export { SignInTask, SignUpTask}
