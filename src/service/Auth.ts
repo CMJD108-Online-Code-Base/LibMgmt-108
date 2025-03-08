@@ -16,15 +16,15 @@ const SignUpTask = async(signUp :any) =>{
     }
    
 }
-const SignInTask = async(signUp :any) =>{
-    console.log(signUp)
+const SignInTask = async(signIn :any) =>{
+    console.log(signIn)
     try{
-        const signUpResponse = await axios.post(
-            `${baseAuthUrl}/signup`,    
-             signUp
+        const signInResponse = await axios.post(
+            `${baseAuthUrl}/signin`,    
+              signIn
         );
-        console.log(signUpResponse.data.token)
-        return signUpResponse.data.token
+        console.log(signInResponse.data.token)
+        return signInResponse.data.token
     }catch(err){
         console.error(err)
         throw err
