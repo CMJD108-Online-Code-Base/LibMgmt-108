@@ -15,14 +15,17 @@ export const AuthProvider = ({children} :{ children:ReactNode}) =>{
 
     useEffect( ()=>{
         //get the token from local strage and validate
+        const token = localStorage.getItem("libToken")
     },[])
 
-    const login = ()=>{
+    const login = (token:string)=>{
         //set token from localstorage
+        localStorage.setItem("libToken",token)
         setisAuthenticated(true)
     }
     const logout = ()=>{
         //remove token from localstorage 
+        localStorage.removeItem("libToken")
         setisAuthenticated(false)
     }
 
