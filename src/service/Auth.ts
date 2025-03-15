@@ -1,5 +1,4 @@
 import axios from "axios";
-
 const baseAuthUrl = "http://localhost:8086/booklib/api/v1/auth";
 
 const SignUpTask = async(signUp :any) =>{

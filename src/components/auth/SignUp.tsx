@@ -2,6 +2,7 @@ import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 import { useState } from "react"
 import { SignUpTask} from "../../service/Auth"
+import { useAuth } from "./AuthProvider"
 
 export const SignUp = () => {
     interface SignUp{
@@ -11,6 +12,8 @@ export const SignUp = () => {
         password:string,
         role:string,
     }
+
+    const { login } = useAuth();
 
     const [user, setUser] = useState<SignUp>({
         firstName:"",
@@ -27,6 +30,7 @@ export const SignUp = () => {
         e.preventDefault();
         const token = await SignUpTask(user)
         console.log(token)
+        login(token)
         setUser({
             firstName:"",
             lastName:"",
@@ -34,6 +38,7 @@ export const SignUp = () => {
             password:"",
             role:""
         })
+       
     }
 
      return(

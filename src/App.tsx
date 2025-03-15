@@ -10,11 +10,13 @@ import { BrowserRouter,Routes,Route } from 'react-router';
 import { NotFound } from './components/NotFound';
 import { SignIn } from "./components/auth/SignIn"
 import { SignUp } from "./components/auth/SignUp"
+import { AuthProvider } from './components/auth/AuthProvider'
 
 function App() {
   return (
     <>
       <BrowserRouter>
+      <AuthProvider>
         <NavB/>
           <Routes>
              <Route path="/" element = {<BookConsole/>}/>
@@ -26,6 +28,7 @@ function App() {
              <Route path= "/lending" element = {<LendingConsole/>}/>
              <Route path= "/*" element = {<NotFound/>}/>
           </Routes>
+      </AuthProvider>
       </BrowserRouter>
     </>
   );

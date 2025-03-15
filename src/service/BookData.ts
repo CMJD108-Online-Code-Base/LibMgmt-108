@@ -1,8 +1,10 @@
 import axios from 'axios'
 const baseUrl = "http://localhost:8086/booklib/api/v1/books";
 
-
-
+const fetchToken = () =>{
+  const token = localStorage.getItem("libToken")
+  return "Bearer "+token
+}
 
 const AddBookData = async(book :any) =>{
   //  save a book
@@ -10,7 +12,11 @@ const AddBookData = async(book :any) =>{
   try{
     const response = await axios.post(
       baseUrl,
-        book,
+        book,{
+          headers:{
+            Authorization: fetchToken()
+          }
+        }
       );
     console.log(response.data)
     return response.data;
@@ -36,11 +42,17 @@ const DeleteBook = async(bookId :string) =>{
   }
    
 }
-
 const GetBooks = async() =>{
   //  get the books
   try{
-    const response  =  await axios.get(`${baseUrl}/getallbooks`);
+    const response  =  await axios.get(`${baseUrl}/getallbooks`,
+    {
+      headers: {
+        Authorization: fetchToken()
+      }
+    }
+    );
+   
     console.log(response.data)
     return response.data;
     
