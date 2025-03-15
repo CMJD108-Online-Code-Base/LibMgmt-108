@@ -32,7 +32,14 @@ const DeleteBook = async(bookId :string) =>{
   //  get the books
   try{
     const response  =  await axios.delete(
-        `${baseUrl}?bookId=${bookId}`);
+        `${baseUrl}?bookId=${bookId}`,
+        {
+          headers:{
+            Authorization: fetchToken()
+          }
+        }
+        
+        );
     console.log(response.data)
     return response.data;
     
@@ -67,7 +74,11 @@ const UpdateBook = async(book :any) =>{
   try{
     const response  =  await axios.patch(
         `${baseUrl}?bookId=${book.bookId}`,
-        book
+        book,{
+          headers:{
+            Authorization: fetchToken()
+          }
+        }
         );
     console.log(response.data)
     return response.data;
