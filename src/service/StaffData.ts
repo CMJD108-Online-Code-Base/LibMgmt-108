@@ -1,12 +1,21 @@
 import axios from 'axios'
 const baseUrl = "http://localhost:8086/booklib/api/v1/staff";
 
+const fetchToken = () =>{
+  const token = localStorage.getItem("libToken")
+  return "Bearer "+token
+}
+
 const AddStaffData = async(staff :any) =>{
   //  save a book
   try{
     const response = await axios.post(
       baseUrl,
-        staff
+        staff,{
+          headers:{
+            Authorization: fetchToken()
+          }
+        }
       );
     console.log(response.data)
     return response.data;
@@ -22,7 +31,11 @@ const DeleteStaff = async(staffId :string) =>{
   //  get the books
   try{
     const response  =  await axios.delete(
-        `${baseUrl}?staffId=${staffId}`);
+        `${baseUrl}?staffId=${staffId}`,{
+          headers:{
+            Authorization: fetchToken()
+          }
+        });
     console.log(response.data)
     return response.data;
     
@@ -36,7 +49,11 @@ const DeleteStaff = async(staffId :string) =>{
 const GetStaff = async() =>{
   //  get the books
   try{
-    const response  =  await axios.get(`${baseUrl}/getallstaff`);
+    const response  =  await axios.get(`${baseUrl}/getallstaff`,{
+      headers:{
+        Authorization: fetchToken()
+      }
+    });
     console.log(response.data)
     return response.data;
     
@@ -51,7 +68,12 @@ const UpdateStaff = async(staff :any) =>{
   try{
     const response  =  await axios.patch(
         `${baseUrl}?staffId=${staff.staffId}`,
-        staff
+        staff,
+        {
+          headers:{
+            Authorization: fetchToken()
+          }
+        }
         );
     console.log(response.data)
     return response.data;

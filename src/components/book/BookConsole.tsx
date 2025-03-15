@@ -6,6 +6,9 @@ import AddBook from './AddBook';
 import { AddBookData, UpdateBook, GetBooks, DeleteBook } from '../../service/BookData'
 import { useLocation } from 'react-router';
 import styles from "./bookstyle.module.css"
+import { useNavigate } from 'react-router'
+import { UnAuth } from '../UnAUth';
+import Swal from "sweetalert2";
 
 export function BookConsole(){
 
@@ -20,6 +23,7 @@ export function BookConsole(){
     totalQty:number;
     avilableQty:number;
   }
+  const navigate = useNavigate();
 
   const [bookData,setBookData] = useState<Book[]>([])
   const [selectedRow,SetSelectedRow] = useState<Book |null>(null)
@@ -42,7 +46,9 @@ export function BookConsole(){
       const books = await GetBooks();
       setBookData(books);
     } catch (error) {
+      navigate("/unauth")
       console.error("Error fetching books:", error);
+
     }
   };
 
@@ -79,13 +85,26 @@ export function BookConsole(){
    }
    //handle delete
    const handleDelete = async (bookId:string) =>{
-    try{
-      await DeleteBook(bookId)
-      setBookData(bookData.filter((book)=> book.bookId !== bookId)) 
-    }catch(err){
-      console.error("Delete book failed with ",err)
-    } 
-  
+     //impl custom alerts
+     const result = await Swal.fire({
+       title:"Are you sure to delete this record?",
+       text:"The process cannot be undone",
+       icon:"warning",
+       showCancelButton: true,
+       confirmButtonColor: "#d33",
+       cancelButtonColor: "#3085d6",
+       confirmButtonText: "Yes, delete it!",
+       cancelButtonText: "Cancel",
+       allowOutsideClick: false,
+     });
+     if(result.isConfirmed){
+      try{
+        await DeleteBook(bookId)
+        setBookData(bookData.filter((book)=> book.bookId !== bookId)) 
+      }catch(err){
+        console.error("Delete book failed with ",err)
+      } 
+     }
    }
    const handleAdd = (newBook :Book) =>{
     setBookData((prevData) => [...prevData,newBook])

@@ -11,6 +11,7 @@ import { NotFound } from './components/NotFound';
 import { SignIn } from "./components/auth/SignIn"
 import { SignUp } from "./components/auth/SignUp"
 import { AuthProvider } from './components/auth/AuthProvider'
+import { UnAuth } from './components/UnAUth';
 
 function App() {
   return (
@@ -27,6 +28,7 @@ function App() {
              <Route path= "/staff" element = {<StaffConsole/>}/>
              <Route path= "/lending" element = {<LendingConsole/>}/>
              <Route path= "/*" element = {<NotFound/>}/>
+             <Route path= "/unauth" element = {<UnAuth/>}/>
           </Routes>
       </AuthProvider>
       </BrowserRouter>
