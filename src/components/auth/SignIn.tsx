@@ -2,6 +2,8 @@ import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 import { useState } from "react"
 import { SignInTask} from "../../service/Auth"
+import { useAuth } from "./AuthProvider"
+import { useNavigate } from 'react-router';
 
 export const SignIn = () => {
 
@@ -9,6 +11,9 @@ export const SignIn = () => {
         email:string;
         password:string;
     }
+
+    const { login } = useAuth();
+    const navigate = useNavigate()
 
     const [ user, setUser] = useState<SignIn>({
         email:"",
@@ -23,16 +28,18 @@ export const SignIn = () => {
         e.preventDefault();
         const token = await SignInTask(user)
         console.log(token)
+        login(token)
         setUser({
             email:"",
             password:"",
         
         })
+        navigate("/book")
     }
 
      return(
 <>
-<h1>Sign up</h1>
+<h1>Sign In</h1>
     <Form className="d-flex flex-column align-items-center mt-5" onSubmit={handleOnSubmit}>
     <div className="w-50">
       <Form.Group className="mb-3" controlId="formBasicEmail">
