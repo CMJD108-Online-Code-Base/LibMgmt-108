@@ -28,13 +28,24 @@ export function BookConsole(){
 
    //add useEffect to load table data
    useEffect(()=>{
-     const laodData = async () =>{
-        const bookDetails = await GetBooks()
-        console.log(bookDetails)
-        setBookData(bookDetails)
-     };
-     laodData();
+    //  const laodData = async () =>{
+    //     const bookDetails = await GetBooks()
+    //     console.log(bookDetails)
+    //     setBookData(bookDetails)
+    //  };
+    //  laodData();
+    fetchBooks();
    },[]) 
+
+   const fetchBooks = async () => {
+    try {
+      const books = await GetBooks();
+      setBookData(books);
+    } catch (error) {
+      console.error("Error fetching books:", error);
+    }
+  };
+
 
    const tHeads: string [] = [
       "Book Id",
@@ -58,11 +69,13 @@ export function BookConsole(){
    }
 
    const handleClose = () =>  setShowEditBookForm(false);
+   
    const handleUpdate = (updatedBook : Book) => {
      const updatedBooks = bookData.map((book) =>
         book.bookId === updatedBook.bookId ? updatedBook : book
      );
      setBookData(updatedBooks)
+
    }
    //handle delete
    const handleDelete = async (bookId:string) =>{

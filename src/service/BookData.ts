@@ -2,13 +2,15 @@ import axios from 'axios'
 const baseUrl = "http://localhost:8086/booklib/api/v1/books";
 
 
+
+
 const AddBookData = async(book :any) =>{
   //  save a book
   console.log("Save book.......................................",book)
   try{
     const response = await axios.post(
       baseUrl,
-        book
+        book,
       );
     console.log(response.data)
     return response.data;
